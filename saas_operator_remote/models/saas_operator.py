@@ -98,6 +98,8 @@ class SaasOperator(models.Model):
             return super(SaasOperator, self)._build_execute_kw(
                 db_name, model, method, args, kwargs
             )
+        if method.startswith("_"):
+            method = 'kt_' + method[1:]
 
         response = jsonrpc(
             self.remote_instance_url + "/saas_operator/execute_kw",
